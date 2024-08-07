@@ -34,7 +34,7 @@ class Program
 						for (int x = 0; x < image.Width; x++)
 						{
 							Color originalColor = ((Bitmap)image).GetPixel(x, y);
-							Color newColor = Color.FromArgb((int)(originalColor.A * 0.5), originalColor.R, originalColor.G, originalColor.B);
+							Color newColor = Color.FromArgb((int)(originalColor.A * 0.5), originalColor.R, originalColor.G, originalColor.B); // this is basically the opacity level, so 50% is the "dummy" value p3r uses. However in some cases 0.25 (75% opacity) is needed for things like personas or some npcs oddly.
 							bitmap.SetPixel(x, y, newColor);
 						}
 					}
