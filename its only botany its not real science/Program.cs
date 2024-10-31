@@ -20,6 +20,21 @@ class Program
 			return;
 		}
 
+		Console.WriteLine("Enter the desired opacity level:");
+		Console.WriteLine("1: 0% (Fully Transparent)");
+		Console.WriteLine("2: 25%");
+		Console.WriteLine("3: 50%");
+		Console.WriteLine("4: 75%");
+		string input = Console.ReadLine();
+		double opacity = input switch
+		{
+			"1" => 0.0,
+			"2" => 0.25,
+			"3" => 0.5,
+			"4" => 0.75,
+			_ => 0.5 // Default to 50% if invalid input
+		};
+
 		try
 		{
 			// Load the image
@@ -28,13 +43,13 @@ class Program
 				// Create a new bitmap with the same size as the original
 				using (Bitmap bitmap = new Bitmap(image.Width, image.Height))
 				{
-					// Iterate through each pixel to reduce the opacity
+					// Iterate through each pixel to adjust the opacity
 					for (int y = 0; y < image.Height; y++)
 					{
 						for (int x = 0; x < image.Width; x++)
 						{
 							Color originalColor = ((Bitmap)image).GetPixel(x, y);
-							Color newColor = Color.FromArgb((int)(originalColor.A * 0.5), originalColor.R, originalColor.G, originalColor.B); // this is basically the opacity level, so 50% is the "dummy" value p3r uses. However in some cases 0.25 (75% opacity) is needed for things like personas or some npcs oddly.
+							Color newColor = Color.FromArgb((int)(originalColor.A * opacity), originalColor.R, originalColor.G, originalColor.B);
 							bitmap.SetPixel(x, y, newColor);
 						}
 					}
